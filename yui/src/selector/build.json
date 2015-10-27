@@ -1,0 +1,10 @@
+{
+    "name": "moodle-local_cohortselector-selector",
+    "builds": {
+        "moodle-local_cohortselector-selector": {
+            "jsfiles": [
+                "selector.js"
+            ]
+        }
+    }
+}

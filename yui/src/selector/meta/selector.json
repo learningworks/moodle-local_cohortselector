@@ -1,0 +1,14 @@
+{
+    "moodle-local_cohortselector-selector": {
+        "requires": [
+            "base",
+            "node",
+            "json-parse",
+            "autocomplete",
+            "autocomplete-filters",
+            "autocomplete-highlighters",
+            "event",
+            "event-key"
+        ]
+    }
+}
