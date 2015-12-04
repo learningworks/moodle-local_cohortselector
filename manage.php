@@ -66,6 +66,10 @@ if ($mform->is_cancelled()) {
 }
 // Handle the add and the removes.
 if ($mform->is_submitted()) {
+    if (optional_param('returntocourse', false, PARAM_BOOL)) {
+        redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
+    }
+
     $data = $mform->get_data();
     // Process cohorts to be added.
     if (isset($data->addbutton) && !empty($data->cohortselector_add)) {

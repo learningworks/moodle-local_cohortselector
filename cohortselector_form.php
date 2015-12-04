@@ -76,14 +76,14 @@ class cohortselector_form extends moodleform {
 
         $mform->addElement('checkbox', 'cohortselector_option_searchanywhere', get_string('searchanywhere', 'local_cohortselector'));
         user_preference_allow_ajax_update('cohortselector_option_searchanywhere', 'bool');
-        $searchanywhere = get_user_preferences('cohortselector_option_searchanywhere', false);
+        $searchanywhere = get_user_preferences('cohortselector_option_searchanywhere', true);
         $this->set_data(array('cohortselector_option_searchanywhere' => $searchanywhere));
 
         $mform->addElement('checkbox', 'cohortselector_option_description',
             get_string('includeinsearch', 'local_cohortselector', get_string('description')));
 
         user_preference_allow_ajax_update('cohortselector_option_description', 'bool');
-        $includedescription = get_user_preferences('cohortselector_option_description', false);
+        $includedescription = get_user_preferences('cohortselector_option_description', true);
         $this->set_data(array('cohortselector_option_description' => $includedescription));
 
 
@@ -91,9 +91,10 @@ class cohortselector_form extends moodleform {
         $mform->setType('id', PARAM_INT);
         $this->set_data(array('id' => $course->id));
 
-        $cancellink = html_writer::link(new moodle_url('/enrol/instances.php', array('id' => $course->id)), get_string('cancel'));
-        $mform->addElement('static', 'cancel', $cancellink);
-        $mform->closeHeaderBefore('cancel');
+        $actionbuttongroup = array();
+        $actionbuttongroup[] =& $mform->createElement('cancel', 'cancel', get_string('cancel'));
+        $actionbuttongroup[] =& $mform->createElement('submit', 'returntocourse', get_string('returntocourse', 'local_cohortselector'));
+        $mform->addGroup($actionbuttongroup, 'actionbuttongroup', '', ' ', false);
 
         // Add javascript module.
         $PAGE->requires->yui_module('moodle-local_cohortselector-selector',

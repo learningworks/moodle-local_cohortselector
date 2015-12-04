@@ -29,6 +29,7 @@ $string['notenabled'] = 'Cohort enrolment plugin not enabled';
 $string['noactivecohorts'] = 'No active cohorts';
 $string['searchanywhere'] = 'Match the search text anywhere';
 $string['removeselected'] = 'Remove selected';
+$string['returntocourse'] = 'Finish enrolling cohorts';
 $string['toomanycohortsmatchsearch'] = 'Too many cohorts ({$a->matches}) match \'{$a->query}\'';
 $string['toomanycohortstoshow'] = 'Too many cohorts ({$a}) to show';
 $string['unlinkselected'] = 'Unlink selected';
