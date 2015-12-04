@@ -92,7 +92,6 @@ class cohortselector_form extends moodleform {
         $this->set_data(array('id' => $course->id));
 
         $actionbuttongroup = array();
-        $actionbuttongroup[] =& $mform->createElement('cancel', 'cancel', get_string('cancel'));
         $actionbuttongroup[] =& $mform->createElement('submit', 'returntocourse', get_string('returntocourse', 'local_cohortselector'));
         $mform->addGroup($actionbuttongroup, 'actionbuttongroup', '', ' ', false);
 
