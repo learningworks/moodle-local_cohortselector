@@ -54,6 +54,13 @@ if (optional_param('links_clearbutton', 0, PARAM_RAW) && confirm_sesskey()) {
 
 // Get the cohort enrolment plugin.
 $enrol = enrol_get_plugin('cohort');
+// Get role identifier, default to student.
+$roleid = $enrol->get_config('roleid', null);
+if (is_null($roleid)) {
+    $student = get_archetype_roles('student');
+    $student = reset($student);
+    $roleid = $plugin->get_config('roleid', $student->id);
+}
 
 if (!$enrol->get_newinstance_link($course->id)) {
     redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id, '')));
@@ -75,7 +82,7 @@ if ($mform->is_submitted()) {
     if (isset($data->addbutton) && !empty($data->cohortselector_add)) {
         foreach ($data->cohortselector_add as $courseidtolink) {
             if (!empty($courseidtolink)) { // Because of formlib selectgroups.
-                $enrol->add_instance($course, array('customint1' => $courseidtolink));
+                $enrol->add_instance($course, array('customint1' => $courseidtolink, 'roleid' => $roleid));
             }
         }
         $trace = new \null_progress_trace();
