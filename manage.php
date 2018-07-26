@@ -31,6 +31,8 @@ $id = required_param('id', PARAM_INT); // Get the course identifier parameter.
 $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 $context = context_course::instance($course->id, MUST_EXIST);
 
+$studentrole = $DB->get_record('role', array('shortname'=>'student'));
+
 $pageurl = new moodle_url('/local/cohortselector/manage.php');
 $pageurl->param('id', $course->id);
 
@@ -54,17 +56,10 @@ if (optional_param('links_clearbutton', 0, PARAM_RAW) && confirm_sesskey()) {
 
 // Get the cohort enrolment plugin.
 $enrol = enrol_get_plugin('cohort');
-// Get role identifier, default to student.
-$roleid = $enrol->get_config('roleid', null);
-if (is_null($roleid)) {
-    $student = get_archetype_roles('student');
-    $student = reset($student);
-    $roleid = $plugin->get_config('roleid', $student->id);
-}
 
-if (!$enrol->get_newinstance_link($course->id)) {
-    redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id, '')));
-}
+//if (!$enrol->get_newinstance_link($course->id)) {
+//    redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id, '')));
+//}
 
 $mform = new cohortselector_form($pageurl->out(false), array('course' => $course));
 // Redirect to instance page on cancel.
@@ -82,7 +77,8 @@ if ($mform->is_submitted()) {
     if (isset($data->addbutton) && !empty($data->cohortselector_add)) {
         foreach ($data->cohortselector_add as $courseidtolink) {
             if (!empty($courseidtolink)) { // Because of formlib selectgroups.
-                $enrol->add_instance($course, array('customint1' => $courseidtolink, 'roleid' => $roleid));
+		// Create a new cohort sync instance with default role of student
+		$enrol->add_instance($course, array('customint1' => $courseidtolink, 'roleid'=>$studentrole->id));
             }
         }
         $trace = new \null_progress_trace();

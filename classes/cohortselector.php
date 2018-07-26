@@ -126,7 +126,7 @@ class cohortselector {
         $searchsql = '';
         $searchparams = array();
         if (!empty($query)) {
-            $searchanywhere = get_user_preferences('cohortselector_option_searchanywhere', false);
+            $searchanywhere = get_user_preferences('cohortselector_option_searchanywhere', true);
             if ($searchanywhere) {
                 $query = '%' . $query . '%';
             } else {
