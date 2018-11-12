@@ -36,35 +36,30 @@ defined('MOODLE_INTERNAL') || die();
 function local_cohortselector_extend_settings_navigation(settings_navigation $navigation, context $context) {
     global $SITE;
 
+    // Series of condition checks, back out if not met.
     if (!isloggedin()) {
         return;
     }
-
     if (is_null($navigation) or is_null($context)) {
         return;
     }
-
     if ($context->instanceid === $SITE->id) {
         return;
     }
-
     if (!enrol_is_enabled('cohort')) {
         return;
     }
-
     if (!has_capability('enrol/cohort:config', $context)) {
         return;
     }
-
     // Only add link when in the context of a course.
     if ($context instanceof context_course) {
         $courseadmin = $navigation->get('courseadmin');
-        $users = $courseadmin->get('users');
+        $users = $navigation->get('users');
         if ($users) {
             $url = new moodle_url('/local/cohortselector/manage.php', array('id' => $context->instanceid));
             $users->add(get_string('pluginname', 'local_cohortselector'), $url, navigation_node::TYPE_CUSTOM,
                 null, 'localcohortselector', new pix_icon('i/enrolusers', ''));
         }
     }
-
 }
