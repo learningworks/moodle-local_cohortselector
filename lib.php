@@ -35,7 +35,6 @@ defined('MOODLE_INTERNAL') || die();
  */
 function local_cohortselector_extend_settings_navigation(settings_navigation $navigation, context $context) {
     global $SITE;
-
     // Series of condition checks, back out if not met.
     if (!isloggedin()) {
         return;
@@ -55,11 +54,15 @@ function local_cohortselector_extend_settings_navigation(settings_navigation $na
     // Only add link when in the context of a course.
     if ($context instanceof context_course) {
         $courseadmin = $navigation->get('courseadmin');
-        $users = $navigation->get('users');
-        if ($users) {
-            $url = new moodle_url('/local/cohortselector/manage.php', array('id' => $context->instanceid));
-            $users->add(get_string('pluginname', 'local_cohortselector'), $url, navigation_node::TYPE_CUSTOM,
-                null, 'localcohortselector', new pix_icon('i/enrolusers', ''));
+        if ($courseadmin && $courseadmin->get('users') && $courseadmin->get('users')->get('manageinstances')) {
+            $users = $courseadmin->get('users');
+            if ($users) {
+                if ($users) {
+                    $url = new moodle_url('/local/cohortselector/manage.php', array('id' => $context->instanceid));
+                    $users->add(get_string('pluginname', 'local_cohortselector'), $url, navigation_node::TYPE_CUSTOM,
+                        null, 'localcohortselector', new pix_icon('i/enrolusers', ''));
+                }
+            }
         }
     }
 }
