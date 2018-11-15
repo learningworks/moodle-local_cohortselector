@@ -15,6 +15,15 @@ YUI.add('moodle-local_cohortselector-selector', function (Y, NAME) {
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * AJAX search handler. Uses YUI AutoComplete.
+ *
+ * @author      Troy Williams
+ * @package     local_cohortselector {@link https://docs.moodle.org/dev/Frankenstyle}
+ * @copyright   2015 LearningWorks Ltd {@link http://www.learningworks.co.nz}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 
 M.local_cohortselector = M.local_cohortselector || {};
 M.local_cohortselector.selector = {
@@ -54,11 +63,6 @@ M.local_cohortselector.selector = {
 
         this.courseid = courseid;
         this.name = name;
-
-        Y.one('#id_' + name + '_searchbutton').remove();
-        Y.one('#id_' + name + '_clearbutton').remove();
-
-        //alert('#id_' + name + '_searchtext');
 
         this.searchfield = Y.one('#id_' + name + '_searchtext');
         this.searchfield.plug(Y.Plugin.AutoComplete);
@@ -122,7 +126,6 @@ M.local_cohortselector.selector = {
 
         count = 0;
         for (var id in data.result.results) {
-            console.log(id + ' ' + data.result.results[id]);
             var option = Y.Node.create('<option value="' + id + '">' + data.result.results[id] + '</option>');
             optgroup.append(option);
             count++;

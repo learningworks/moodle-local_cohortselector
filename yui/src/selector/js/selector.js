@@ -62,9 +62,6 @@ M.local_cohortselector.selector = {
         this.courseid = courseid;
         this.name = name;
 
-        Y.one('#id_' + name + '_searchbutton').remove();
-        Y.one('#id_' + name + '_clearbutton').remove();
-
         this.searchfield = Y.one('#id_' + name + '_searchtext');
         this.searchfield.plug(Y.Plugin.AutoComplete);
         this.searchfield.ac.set('source', this.prepare_url(this.AJAX_SEARCH_URL, courseid));
@@ -127,7 +124,6 @@ M.local_cohortselector.selector = {
 
         count = 0;
         for (var id in data.result.results) {
-            console.log(id + ' ' + data.result.results[id]);
             var option = Y.Node.create('<option value="' + id + '">' + data.result.results[id] + '</option>');
             optgroup.append(option);
             count++;

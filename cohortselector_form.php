@@ -67,10 +67,10 @@ class cohortselector_form extends moodleform {
         $searchgroup = array();
         $searchgroup[] = $mform->createElement('text', 'cohortselector_searchtext');
         $mform->setType('cohortselector_searchtext', PARAM_TEXT);
-        $searchgroup[] = $mform->createElement('submit', 'cohortselector_searchbutton', get_string('search'));
-        $mform->registerNoSubmitButton('cohortselector_searchbutton');
-        $searchgroup[] = $mform->createElement('submit', 'cohortselector_clearbutton', get_string('clear'));
-        $mform->registerNoSubmitButton('cohortselector_clearbutton');
+        //$searchgroup[] = $mform->createElement('submit', 'cohortselector_searchbutton', get_string('search'));
+        //$mform->registerNoSubmitButton('cohortselector_searchbutton');
+        //$searchgroup[] = $mform->createElement('submit', 'cohortselector_clearbutton', get_string('clear'));
+        //$mform->registerNoSubmitButton('cohortselector_clearbutton');
         $searchgroup[] = $mform->createElement('submit', 'addbutton', get_string('addselected', 'local_cohortselector'));
         $mform->addGroup($searchgroup, 'searchgroup', get_string('search') , array(''), false);
 
