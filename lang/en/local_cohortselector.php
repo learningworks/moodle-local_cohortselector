@@ -33,4 +33,4 @@ $string['returntocourse'] = 'Return to course content';
 $string['toomanycohortsmatchsearch'] = 'Too many cohorts ({$a->matches}) match \'{$a->query}\'';
 $string['toomanycohortstoshow'] = 'Too many cohorts ({$a}) to show';
 $string['unlinkselected'] = 'Unlink selected';
-
+$string['managesyncedcohorts'] = 'Manage synced cohorts';
