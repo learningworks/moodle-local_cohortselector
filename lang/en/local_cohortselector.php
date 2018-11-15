@@ -30,6 +30,7 @@ $string['noactivecohorts'] = 'No active cohorts';
 $string['searchanywhere'] = 'Match the search text anywhere';
 $string['removeselected'] = 'Remove selected';
 $string['returntocourse'] = 'Return to course content';
+$string['returntoenrolmentmethods'] = 'Return to enrolment methods';
 $string['toomanycohortsmatchsearch'] = 'Too many cohorts ({$a->matches}) match \'{$a->query}\'';
 $string['toomanycohortstoshow'] = 'Too many cohorts ({$a}) to show';
 $string['unlinkselected'] = 'Unlink selected';

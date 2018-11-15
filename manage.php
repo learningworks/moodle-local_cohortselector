@@ -57,28 +57,27 @@ if (optional_param('links_clearbutton', 0, PARAM_RAW) && confirm_sesskey()) {
 // Get the cohort enrolment plugin.
 $enrol = enrol_get_plugin('cohort');
 
-//if (!$enrol->get_newinstance_link($course->id)) {
-//    redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id, '')));
-//}
-
 $mform = new cohortselector_form($pageurl->out(false), array('course' => $course));
 // Redirect to instance page on cancel.
 if ($mform->is_cancelled()) {
-    redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id)));
+    redirect(new moodle_url('/user/index.php', array('id' => $course->id)));
 }
 // Handle the add and the removes.
 if ($mform->is_submitted()) {
+    if (optional_param('returntoenrolmentmethods', false, PARAM_BOOL)) {
+        redirect(new moodle_url('/enrol/instances.php', array('id' => $course->id)));
+    }
     if (optional_param('returntocourse', false, PARAM_BOOL)) {
         redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
     }
-
     $data = $mform->get_data();
     // Process cohorts to be added.
     if (isset($data->addbutton) && !empty($data->cohortselector_add)) {
         foreach ($data->cohortselector_add as $courseidtolink) {
             if (!empty($courseidtolink)) { // Because of formlib selectgroups.
-		// Create a new cohort sync instance with default role of student
-		$enrol->add_instance($course, array('customint1' => $courseidtolink, 'roleid'=>$studentrole->id));
+		        // Create a new cohort sync instance with default role of student
+		        $enrol->add_instance($course,
+                    array('customint1' => $courseidtolink, 'roleid' => $studentrole->id));
             }
         }
         $trace = new \null_progress_trace();
