@@ -57,11 +57,26 @@ function local_cohortselector_extend_settings_navigation(settings_navigation $na
         if ($courseadmin && $courseadmin->get('users') && $courseadmin->get('users')->get('manageinstances')) {
             $users = $courseadmin->get('users');
             if ($users) {
-                if ($users) {
-                    $url = new moodle_url('/local/cohortselector/manage.php', array('id' => $context->instanceid));
-                    $users->add(get_string('pluginname', 'local_cohortselector'), $url, navigation_node::TYPE_CUSTOM,
-                        null, 'localcohortselector', new pix_icon('i/enrolusers', ''));
-                }
+                $url = new moodle_url('/local/cohortselector/manage.php', ['id' => $context->instanceid]);
+                $text = get_string('pluginname', 'local_cohortselector');
+                $users->add(
+                    $text,
+                    $url,
+                    navigation_node::TYPE_CUSTOM,
+                    null,
+                    'localcohortselectormanage',
+                    new pix_icon('i/enrolusers', $text)
+                );
+                $url = new moodle_url('/local/cohortselector/groupbuilder.php', ['id' => $context->instanceid]);
+                $text = get_string('creategroupsfromcohorts', 'local_cohortselector');
+                $users->add(
+                    $text,
+                    $url,
+                    navigation_node::TYPE_CUSTOM,
+                    null,
+                    'localcohortselectorgroupbuilder',
+                    new pix_icon('i/group', $text)
+                );
             }
         }
     }
